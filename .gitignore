@@ -30,3 +30,4 @@ config.json
 # Python bytecode
 __pycache__/
 *.pyc
+.DS_Store

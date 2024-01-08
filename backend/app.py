@@ -1,29 +1,34 @@
-from flask import Flask, request, jsonify, render_template, send_from_directory
+from flask import Flask, request, jsonify, send_from_directory
 from werkzeug.utils import secure_filename
 from flask_cors import CORS
 from flask_migrate import Migrate
-from chatbot import get_chatbot_response
 import os
-from document_processor import process_uploaded_file
-from database import db, Document  # Import from database.py
 from dotenv import load_dotenv
+
+# Make sure to import your specific functions and models
+from chatbot import get_chatbot_response
+from document_processor import process_uploaded_file
+from database import db, Document
 from documents import init_docsearch_and_chain
 
-
-app = Flask(__name__)
+app = Flask(__name__, static_folder='frontend/build', static_url_path='')
 app.config['UPLOAD_FOLDER'] = '/Users/sharif/Documents/SpecialistResponses'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-db.init_app(app)  # Initialize SQLAlchemy with the Flask app
+db.init_app(app)
 migrate = Migrate(app, db)
 load_dotenv()
 CORS(app)
 
-
-@app.route('/')
-def index():
-    return render_template('index.html')
+# Serve the React Frontend
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def serve(path):
+    if path and os.path.exists(os.path.join(app.static_folder, path)):
+        return send_from_directory(app.static_folder, path)
+    else:
+        return send_from_directory(app.static_folder, 'index.html')
 
 
 @app.route('/upload', methods=['POST'])
