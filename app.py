@@ -11,7 +11,7 @@ from document_processor import process_uploaded_file
 from database import db, Document
 from documents import init_docsearch_and_chain
 
-app = Flask(__name__, static_folder='frontend/build', static_url_path='')
+app = Flask(__name__, static_folder='ChatbotOpenAi/build', static_url_path='')
 app.config['UPLOAD_FOLDER'] = '/Users/sharif/Documents/SpecialistResponses'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
