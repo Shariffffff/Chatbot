@@ -13,19 +13,30 @@ def init_docsearch_and_chain(app):
     with app.app_context():
         text = read_documents_from_database()
 
-        char_text_splitter = CharacterTextSplitter(separator="\n", chunk_size=1000,
-                                                   chunk_overlap=200, length_function=len)
+        # Check if there is any text from documents
+        if not text.strip():
+            print("No documents found in the database.")
+            return
+
+        char_text_splitter = CharacterTextSplitter(separator="\n", chunk_size=1000, chunk_overlap=200, length_function=len)
         text_chunks = char_text_splitter.split_text(text)
+
+        # Debugging: Check if text chunks are created
+        print("Number of text chunks:", len(text_chunks))
+        if text_chunks:
+            print("Sample text chunk:", text_chunks[0][:100])  # Print first 100 characters of the first chunk
+        else:
+            print("No text chunks created. Please check the document contents.")
+            return  # Exit the function as there are no text chunks
 
         embeddings = OpenAIEmbeddings()
         docsearch = FAISS.from_texts(text_chunks, embeddings)
-
         llm = OpenAI()
         chain = load_qa_chain(llm, chain_type="stuff")
 
 def read_documents_from_database():
     combined_text = ""
-    documents = Document.query.all()  # Fetch all documents from the database
+    documents = Document.query.all()
     for doc in documents:
-        combined_text += doc.content + "\n\n"  # Concatenate the content of each document
+        combined_text += doc.content + "\n\n"
     return combined_text
