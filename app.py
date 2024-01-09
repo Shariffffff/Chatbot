@@ -79,4 +79,3 @@ if __name__ == '__main__':
     with app.app_context():
         init_docsearch_and_chain(app)  # Initialize document search and QA chain
     app.run(debug=True, port=5000)
-

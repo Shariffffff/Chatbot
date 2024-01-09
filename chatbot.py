@@ -1,6 +1,5 @@
 import openai
 import os
-import numpy as np
 import json
 import torch
 from nltk_utils import bag_of_words, tokenize
@@ -9,14 +8,20 @@ import spacy
 from documents import docsearch, chain
 from spellchecker import SpellChecker
 from document_processor import search_documents_for_answer
+from database import Document  # Make sure to import Document
+from dotenv import load_dotenv
+import numpy as np
 
 # Load the SpaCy language model
 nlp = spacy.load("en_core_web_sm")
 
-# Set the OpenAI API key
+# Load environment variables
+load_dotenv()
 openai.api_key = os.getenv('OPENAI_API_KEY')
+
+# Check for API key
 if not openai.api_key:
-    raise ValueError("The OpenAI API key has not been set as an environment variable.")
+    raise ValueError("OpenAI API key not found. Please set the OPENAI_API_KEY environment variable.")
 
 # Load saved model data
 data = torch.load('data.pth')
@@ -49,10 +54,7 @@ def correct_spelling(sentence):
     corrected_words = []
     for word in sentence.split():
         corrected_word = spell.correction(word)
-        if corrected_word is not None:
-            corrected_words.append(corrected_word)
-        else:
-            corrected_words.append(word)  # Use the original word if correction is None
+        corrected_words.append(corrected_word)
     return ' '.join(corrected_words)
 
 def get_neural_response(sentence):
@@ -76,56 +78,36 @@ def get_neural_response(sentence):
 
     return None
 
-
 def get_gpt3_response(user_input, conversation_history):
-    # Focused prompt with clearer context
-    prompt = "The following is a conversation providing support and information strictly about autism.\n"
-
-    # Add only the last few relevant exchanges from the conversation history
-    history = conversation_history[-5:]
-    for exchange in history:
-        prompt += f"{exchange['role'].capitalize()}: {exchange['content']}\n"
-
-    prompt += f"User: {user_input}\nAssistant:"
+    prompt = "This is a conversation focused on autism. "
+    prompt += " ".join([f"{x['role'].capitalize()}: {x['content']}" for x in conversation_history[-5:]])
+    prompt += f" User: {user_input} \nAssistant:"
 
     try:
-        response = openai.Completion.create(
-            engine="davinci",
-            prompt=prompt,
-            max_tokens=50,
-            temperature=0.7,  # Adjust temperature as needed
-            stop=["\nUser:", "\nAssistant:"]  # Stop tokens to control the response flow
-        )
-        generated_response = response.choices[0].text.strip()
-
-        # Additional check to filter irrelevant responses
-        if len(generated_response.split()) < 5 or "autism" not in generated_response.lower():
-            return "I'm sorry, I don't have enough information to answer that question."
-
-        return generated_response
+        response = openai.Completion.create(engine="gpt-3.5-turbo-instruct", prompt=prompt, max_tokens=50)
+        return response.choices[0].text.strip()
     except Exception as e:
-        print("Error generating response from OpenAI:", e)
-        return "I'm sorry, I'm having trouble accessing my resources at the moment."
-
+        return f"Error generating response from OpenAI: {e}"
 
 def get_chatbot_response(user_input):
     corrected_input = correct_spelling(user_input)
 
-    # Check documents first
-    document_response = search_documents_for_answer(corrected_input)
+    # Try to find an answer from the uploaded documents
+    documents = Document.query.all()  # Fetch all documents from the database
+    document_response = search_documents_for_answer(corrected_input, documents)
     if document_response:
         update_conversation(user_input, document_response)
         return document_response
 
-    # Check intents next
+    # If no answer is found in the documents, use NeuralNet model
     neural_response = get_neural_response(corrected_input)
     if neural_response:
         update_conversation(user_input, neural_response)
         return neural_response
 
-    # Finally, use OpenAI's GPT-3 for queries outside the scope of predefined intents and documents
+    # Use GPT-3 as the final fallback
     gpt3_response = get_gpt3_response(corrected_input, conversation_history)
-    if gpt3_response and gpt3_response.strip() != "":
+    if gpt3_response:
         update_conversation(user_input, gpt3_response)
         return gpt3_response
 
@@ -139,8 +121,6 @@ if __name__ == '__main__':
     while True:
         user_input = input("You: ")
         if user_input.lower() == 'quit':
-            print("ChatBot: Goodbye!")
             break
-
         response = get_chatbot_response(user_input)
         print("ChatBot:", response)

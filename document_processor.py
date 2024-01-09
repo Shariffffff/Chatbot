@@ -41,11 +41,11 @@ def process_uploaded_file(file_path, filename):
     db.session.add(new_document)
     db.session.commit()
 
-def search_documents_for_answer(question):
+
+def search_documents_for_answer(question, documents):
     """
-    Search through all documents in the database for an answer to the question.
+    Search through the provided documents for an answer to the question.
     """
-    documents = Document.query.all()
     for doc in documents:
         result = qa_pipeline(question=question, context=doc.content)
         if result['score'] > 0.75:  # Adjust the threshold as needed
