@@ -8,6 +8,11 @@
 # Node.js testing
 /coverage
 
+<<<<<<< HEAD
+# Node.js production
+/build
+=======
+>>>>>>> a54df6d69895262f992238b8055296f761b92040
 
 # Misc files
 .DS_Store
@@ -28,3 +33,8 @@ config.json
 # Python bytecode
 __pycache__/
 *.pyc
+<<<<<<< HEAD
+.DS_Store
+.DS_Store
+=======
+>>>>>>> a54df6d69895262f992238b8055296f761b92040

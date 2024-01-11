@@ -1,0 +1,131 @@
+{
+  "intents": [
+    {
+      "tag": "greetings",
+      "patterns": ["Hi", "Hello", "Hey", "Good morning", "Good afternoon", "Good evening"],
+      "responses": [
+        "Hello! How may I assist you today?",
+        "Hi there! What can I do for you?",
+        "Good day! How can I help you?",
+        "Hello! I'm here to help you with any questions you might have."
+      ]
+    },
+    {
+      "tag": "autism_definition",
+      "patterns": [
+        "What is autism?",
+        "Define autism",
+        "Can you tell me about autism?",
+        "What does autism mean?"
+      ],
+      "responses": [
+        "Autism, or autism spectrum disorder (ASD), refers to a range of conditions characterised by challenges with social skills, repetitive behaviours, speech and nonverbal communication.",
+        "Autism is a complex, lifelong developmental disability that typically appears during early childhood and can impact a person's social skills, communication, relationships, and self-regulation."
+      ]
+    },
+    {
+      "tag": "autism_symptoms",
+      "patterns": [
+        "What are the symptoms of autism?",
+        "How do I know if someone has autism?",
+        "What are signs of autism?",
+        "Could you tell me the symptoms of autism?"
+      ],
+      "responses": [
+        "Symptoms of autism include difficulties with social communication and interaction, restricted interests, repetitive behaviours, and challenges in sensory processing.",
+        "Common signs of autism are avoiding eye contact, delayed speech and communication skills, reliance on rules and routines, being upset by relatively minor changes, and unexpected reactions to sensory stimuli."
+      ]
+    },
+    {
+      "tag": "autism_causes",
+      "patterns": [
+        "What causes autism?",
+        "How does one get autism?",
+        "What is the cause of autism?",
+        "Why does autism occur?"
+      ],
+      "responses": [
+        "The exact cause of autism is currently unknown, but it is thought to be caused by a combination of genetic and environmental factors.",
+        "Research suggests that autism develops from a combination of genetic and nongenetic, or environmental, influences. These influences appear to increase the risk that a child will develop autism."
+      ]
+    },
+    {
+      "tag": "autism_treatment",
+      "patterns": [
+        "How is autism treated?",
+        "What are the treatments for autism?",
+        "Autism treatment options",
+        "Can autism be cured?"
+      ],
+      "responses": [
+        "There's no 'cure' for autism, but there are various interventions that can help. These include behavioural therapy, speech and language therapy, and educational support.",
+        "Treatment for autism is typically a very individualised plan, often involving behavioural therapies and the development of structured routines, with the aim to build on the individual's strengths."
+      ]
+    },
+    {
+      "tag": "autism_support",
+      "patterns": [
+        "How can I support someone with autism?",
+        "What support is available for autism?",
+        "How to help someone with autism",
+        "Support for autism"
+      ],
+      "responses": [
+        "Supporting someone with autism involves understanding and accepting their condition, providing a structured environment, and seeking professional help from therapists or educational specialists as needed.",
+        "There are various support options for autism, including special education programmes, therapy, and community support groups. Understanding, patience, and creating a predictable environment are also key."
+      ]
+    },
+    {
+      "tag": "autism_diagnosis",
+      "patterns": [
+        "How is autism diagnosed?",
+        "What is the process for diagnosing autism?",
+        "Autism diagnosis criteria",
+        "How do doctors test for autism?"
+      ],
+      "responses": [
+        "Diagnosing autism typically involves observing the individual's behavior and development. Doctors may use various developmental tests and look for key symptoms as outlined in diagnostic criteria.",
+        "Autism diagnosis is generally made by healthcare professionals and involves a comprehensive evaluation that includes interviews, observations, and developmental and psychological assessments."
+      ]
+    },
+    {
+      "tag": "living_with_autism",
+      "patterns": [
+        "What is it like living with autism?",
+        "Challenges of living with autism",
+        "Life with autism spectrum disorder",
+        "Can you live a normal life with autism?"
+      ],
+      "responses": [
+        "Living with autism can involve various challenges, particularly in social communication and dealing with change. However, many people with autism lead fulfilling lives with the right support.",
+        "Individuals with autism often experience the world differently, which can lead to both challenges and unique strengths. With understanding and tailored support, they can thrive in many aspects of life."
+      ]
+    },
+    {
+      "tag": "autism_in_children",
+      "patterns": [
+        "How to recognise autism in children?",
+        "Signs of autism in young children",
+        "Early symptoms of autism in kids",
+        "What should I look for to see if my child has autism?"
+      ],
+      "responses": [
+        "In children, early signs of autism include not responding to their name, limited eye contact, delayed speech and language skills, and repetitive behaviors.",
+        "Symptoms of autism in children can also include challenges with understanding other people's feelings, difficulties in playing and interacting with other children, and a strong reliance on routines."
+      ]
+    },
+    {
+      "tag": "autism_education",
+      "patterns": [
+        "Educational support for autistic children",
+        "Schooling for children with autism",
+        "What educational options are there for kids with autism?",
+        "How do schools accommodate autistic children?"
+      ],
+      "responses": [
+        "Educational support for children with autism may include special education services, individualized education programs, classroom accommodations, and the support of special education teachers.",
+        "Many schools offer tailored support for children with autism, which might involve smaller class sizes, one-on-one support, structured learning environments, and visual aids to support learning."
+      ]
+    }
+  ]
+}
