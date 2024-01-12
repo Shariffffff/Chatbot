@@ -1,0 +1,65 @@
+/* LandingPage.css */
+
+.landing-page {
+    background-color: #f7f7f7;
+    color: #333;
+    text-align: center;
+    padding: 40px;
+  }
+  
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+  
+  .sections-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 40px;
+  }
+  
+  .specialist-section a, .user-section a {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none; /* Remove underline from links */
+    transition: background-color 0.3s;
+  }
+  
+  .specialist-section a:hover, .user-section a:hover {
+    background-color: #0056b3;
+  }
+  
+  h2 {
+    color: #007bff;
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+  }
+  
+  p {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+  }
+  
+  a {
+    text-decoration: none;
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    transition: background-color 0.3s;
+  }
+  
+  a:hover {
+    background-color: #0056b3;
+    color: #fff; /* Added this line to ensure text remains visible on hover */
+  }
