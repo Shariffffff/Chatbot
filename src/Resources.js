@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 import React, { useState } from 'react';
 import './Resources.css';
 import axios from 'axios';
@@ -57,4 +55,3 @@ function Resources() {
 }
 
 export default Resources;
->>>>>>> d53a1ae (updates)
