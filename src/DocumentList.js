@@ -5,6 +5,7 @@ import './DocumentList.css';
 function DocumentList() {
   const [documents, setDocuments] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const backendUrl = 'http://ec2-18-133-64-91.eu-west-2.compute.amazonaws.com:5000';
 
   useEffect(() => {
     fetchDocuments();
@@ -12,7 +13,7 @@ function DocumentList() {
 
   const fetchDocuments = async () => {
     try {
-      const response = await axios.get('http://127.0.0.1:5000/documents');
+      const response = await axios.get(`${backendUrl}/documents`);
       setDocuments(response.data);
       setIsLoading(false);
     } catch (error) {
@@ -23,7 +24,7 @@ function DocumentList() {
 
   const handleDelete = async (documentId) => {
     try {
-      await axios.delete(`http://127.0.0.1:5000/documents/delete/${documentId}`);
+      await axios.delete(`${backendUrl}/documents/delete/${documentId}`);
       fetchDocuments(); // Refresh the list after deletion
     } catch (error) {
       console.error('Error deleting document:', error);
@@ -40,7 +41,7 @@ function DocumentList() {
           <li key={doc.id}>
             {doc.filename} (Uploaded on: {doc.upload_date})
             {' '}
-            <a href={`http://127.0.0.1:5000/documents/${doc.filename}`} target="_blank" rel="noopener noreferrer">
+            <a href={`${backendUrl}/documents/${doc.filename}`} target="_blank" rel="noopener noreferrer">
               View Document
             </a>
             {' '}

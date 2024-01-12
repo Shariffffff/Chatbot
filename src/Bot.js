@@ -4,6 +4,7 @@ import './Bot.css';
 function Bot() {
   const [userInput, setUserInput] = useState('');
   const [messages, setMessages] = useState([]);
+  const backendUrl = 'http://ec2-18-133-64-91.eu-west-2.compute.amazonaws.com:5000';
 
   const handleInputChange = (e) => {
     setUserInput(e.target.value);
@@ -17,7 +18,7 @@ function Bot() {
     setMessages([...messages, newMessage]);
 
     try {
-      const response = await fetch('http://127.0.0.1:5000/chat', {
+      const response = await fetch(`${backendUrl}/chat`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
