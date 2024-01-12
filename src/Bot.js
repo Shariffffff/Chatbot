@@ -4,7 +4,7 @@ import './Bot.css';
 function Bot() {
   const [userInput, setUserInput] = useState('');
   const [messages, setMessages] = useState([]);
-  const backendUrl = 'http://18.169.18.139:5000';  // Update with your EC2 instance public IP address
+  const backendUrl = 'http://3.8.181.7:5000';  // Update with your EC2 instance public IP address
 
   const handleInputChange = (e) => {
     setUserInput(e.target.value);

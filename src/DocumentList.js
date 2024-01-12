@@ -5,7 +5,7 @@ import './DocumentList.css';
 function DocumentList() {
   const [documents, setDocuments] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const backendUrl = 'http://18.169.18.139:5000';  // Update with your EC2 instance public IP address
+  const backendUrl = 'http://3.8.181.7:5000';  // Update with your EC2 instance public IP address
 
   useEffect(() => {
     fetchDocuments();
